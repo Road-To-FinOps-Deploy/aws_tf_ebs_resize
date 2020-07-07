@@ -1,0 +1,32 @@
+{
+    "schemaVersion": "2.2",
+    "description": "partition Volumes",
+    "mainSteps": [
+      {
+        "name": "PartitionVolumesMappingWindows",
+        "action": "aws:runPowerShellScript",
+        "precondition": {
+          "StringEquals": [
+            "platformType",
+            "Windows"
+          ]
+        },
+        "inputs": {
+          "runCommand": [
+            "Write-Verbose 'Checking whether Volume is ready for partition extension.'",
+            "while ($VolumeReady -ne $true){ $VolumeStatus = (Get-EC2VolumeModification -VolumeId {{VolumeId}}).ModificationState.Value; if($VolumeStatus -eq 'completed'){ Write-Host 'Volume is now updated' ; $VolumeReady = $true} else{ Write-Host 'Volume is not ready... will try again in 10 seconds'; Start-Sleep -Seconds 10}}",
+            "$SerialNo = '{{VolumeId}}' -Replace '-',''",
+            "$Disk = Get-Disk | where-object SerialNumber -eq $SerialNo",
+            "Write-Host $Disk",
+            "$PartitionNumber = (Get-Partition -DiskNumber $Disk.Number | Where-Object -FilterScript {$_.Type -ne 'Reserved'}).PartitionNumber[0]",
+            "$Size = (Get-PartitionSupportedSize -DiskNumber $Disk.Number -PartitionNumber $PartitionNumber).SizeMax",
+            "Write-Host 'Maximum volume size in bytes:'",
+            "$Size",
+            "Resize-Partition -DiskNumber $Disk.Number -PartitionNumber $PartitionNumber $Size",
+            "Get-Disk",
+            "Write-Host 'Resize and extension complete.'"
+           ]
+        }
+      }
+    ]
+  }

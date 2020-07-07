@@ -1,0 +1,43 @@
+env.TF_VERSION = '0.12.19'
+@Library('jenkins-library')_
+withCredentials([string(credentialsId: 'TeamsTerraformModules_Hook', variable: 'TEAMS_HOOK')]) {
+ properties(
+  [
+   office365ConnectorWebhooks([
+    [notifyFailure: true, notifySuccess: true, url: "${TEAMS_HOOK}"]
+   ])
+  ]
+ )
+}
+pipeline {
+    agent {
+        docker {
+            label "docker && new"
+            image "hashicorp/terraform:${env.TF_VERSION}"
+            args "--entrypoint '/bin/busybox'"
+        }
+    }
+    options {
+        timeout(time: 1, unit: "HOURS")
+        buildDiscarder(logRotator(numToKeepStr: "5"))
+    }
+    environment{
+        TF_IN_AUTOMATION = 1
+    }
+    stages{
+        stage('Terraform lib'){
+            steps{
+                terraform_check()
+            }
+        }
+    }
+    post {
+        always{
+            script {
+                currentBuild.result = currentBuild.result ?: 'SUCCESS'
+                notifyBitbucket()
+            }
+            deleteDir()
+        }
+    }
+}
