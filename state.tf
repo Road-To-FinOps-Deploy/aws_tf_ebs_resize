@@ -3,8 +3,35 @@ resource "aws_sfn_state_machine" "sfn_state_machine" {
   role_arn   = aws_iam_role.iam_role_for_state.arn
   definition = <<EOF
   {
-    "StartAt": "SSM_GET_MAPPING",
+    "StartAt": "CHECK_OS",
     "States": {
+      "CHECK_OS": {
+        "Type": "Task",
+        "Resource": "${aws_lambda_function.CHECK_OS.arn}",
+        "Next": "ChoiceStateoverOS",
+        "ResultPath": "$.OS_Result",
+        "Catch": [
+            {
+               "ErrorEquals": ["States.ALL"],
+               "Next": "FailState"
+            }
+         ]
+      },
+      "ChoiceStateoverOS": {
+        "Type": "Choice",
+        "Choices": [
+          {
+            "Variable": "$.OS_Result",
+            "StringEquals": "windows",
+            "Next": "SSM_GET_MAPPING"
+          },
+          {
+            "Variable": "$.OS_Result",
+            "StringEquals": "linux",
+            "Next": "FailState"
+          }
+        ]
+      },
       "SSM_GET_MAPPING": {
         "Type": "Task",
         "Resource": "${aws_lambda_function.EXECUTE_SSM.arn}",

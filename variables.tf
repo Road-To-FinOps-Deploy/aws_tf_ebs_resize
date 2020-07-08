@@ -3,9 +3,8 @@ variable "region" {
 }
 
 variable "alarm_email" {
-}
 
-variable "InstanceId"{}
+}
 
 variable "size_to_case_alert" {
   default     = "100"
