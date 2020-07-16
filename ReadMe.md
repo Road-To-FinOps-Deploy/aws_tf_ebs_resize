@@ -1,9 +1,6 @@
 
 # Automating Amazon EBS Volume-resizing with AWS Step Functions and AWS Systems Manager
 
-https://aws.amazon.com/blogs/storage/automating-amazon-ebs-volume-resizing-with-aws-step-functions-and-aws-systems-manager/
-https://stackoverflow.com/questions/37441225/how-to-monitor-free-disk-space-at-aws-ec2-with-cloud-watch-in-windows
-
 
 ## Prerec
 * EC2 Role has access to cloud watch
@@ -38,3 +35,8 @@ This state machine is trigged by the custom cloud watch metric for low disk spac
 * s3 upload of file for ec2
 * interagration into chat e.g. teams, slack
 
+
+Supporting links:
+https://aws.amazon.com/blogs/storage/automating-amazon-ebs-volume-resizing-with-aws-step-functions-and-aws-systems-manager/
+https://stackoverflow.com/questions/37441225/how-to-monitor-free-disk-space-at-aws-ec2-with-cloud-watch-in-windows
+https://docs.aws.amazon.com/powershell/latest/userguide/specifying-your-aws-credentials.html
