@@ -3,7 +3,7 @@
 
 
 ## Prerec
-* EC2 Role has access to cloud watch
+* EC2 Role has access to cloud watch and SSM
 * AWS.EC2.Windows.CloudWatch added to server  C:\Program Files\Amazon\SSM\Plugins\awsCloudWatch\
 * Change Region if needed
 * Run Powershell as administrator and run Restart-Service AmazonSSMAgent
