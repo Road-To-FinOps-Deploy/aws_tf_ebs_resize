@@ -10,6 +10,7 @@ resource "aws_cloudwatch_metric_alarm" "cloudwatch_metric_alarm_ebs_free_space" 
   alarm_description   = "This metric monitors ebs percentage of free space"
   alarm_actions       = [aws_sns_topic.statemachine_trigger.arn]
   dimensions = {
-    InstanceId = "i-"
+    InstanceId = "i- "
+    #AutoScalingGroupName = "${aws_autoscaling_group.bar.name}"
   }
 }

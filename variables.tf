@@ -3,7 +3,7 @@ variable "region" {
 }
 
 variable "alarm_email" {
-
+  default = "stephanie.gooch@kpmg.co.uk"
 }
 
 variable "size_to_case_alert" {

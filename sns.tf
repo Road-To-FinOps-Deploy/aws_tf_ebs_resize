@@ -2,9 +2,9 @@
 module "sns-email-topic" {
   source        = "./mod/aws_sns_email_notifications"
   display_name  = "lambda_error_notification"
-  service_name  = "finops_billing"
+  service_name  = "finops_techsolutions_billing"
   email_address = var.alarm_email
-  stack_name    = "BillingLambdasErrorsNotifications"
+  stack_name    = "techsolutionsBillingLambdasErrorsNotifications"
 }
 
 resource "aws_sns_topic" "statemachine_trigger" {

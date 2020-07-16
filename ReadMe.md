@@ -7,6 +7,8 @@
 * AWS.EC2.Windows.CloudWatch added to server  C:\Program Files\Amazon\SSM\Plugins\awsCloudWatch\
 * Change Region if needed
 * Run Powershell as administrator and run Restart-Service AmazonSSMAgent
+* Update the Cloudwatch with the EC2 ID
+
 
 ## Deploy
 aws-saml
@@ -34,7 +36,6 @@ This state machine is trigged by the custom cloud watch metric for low disk spac
 * tag snapshot
 * s3 upload of file for ec2
 * interagration into chat e.g. teams, slack
-
 
 Supporting links:
 https://aws.amazon.com/blogs/storage/automating-amazon-ebs-volume-resizing-with-aws-step-functions-and-aws-systems-manager/
