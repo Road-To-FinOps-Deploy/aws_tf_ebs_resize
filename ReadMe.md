@@ -41,3 +41,8 @@ Supporting links:
 https://aws.amazon.com/blogs/storage/automating-amazon-ebs-volume-resizing-with-aws-step-functions-and-aws-systems-manager/
 https://stackoverflow.com/questions/37441225/how-to-monitor-free-disk-space-at-aws-ec2-with-cloud-watch-in-windows
 https://docs.aws.amazon.com/powershell/latest/userguide/specifying-your-aws-credentials.html
+https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ec2-windows-volumes.html
+
+## Troubleshooting
+If your step function is failing saying the volume name is NA then made sure you enough permisson on the ec2
+Check the ec2 role example in policies
