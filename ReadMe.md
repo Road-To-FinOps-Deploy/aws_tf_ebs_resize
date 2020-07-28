@@ -17,6 +17,29 @@ terraoform init
 terraform apply
 
 
+## Usage
+
+module "aws_tf_ebs_resize" {
+  source = "/aws_tf_ebs_volumes_cleaner"
+  alarm_email = "example@email.com"
+  InstanceId = "i-1234567890"
+}
+
+
+## Optional Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|:----:|:-----:|:-----:|
+| alarm\_email| email address of person to alert if gb goes over 100| string | `""` | yes |
+| InstanceId | The id of the instance you wish to use| string | `""` | yes |
+| size\_to\_case\_alert | At what GB size would you like to be notified | `"100"` | no |
+| increase\_percentage | How big of increments to increase by| string | `"0.1"` | no |
+| threshold | How high does the volumes utilised space need to be to trigger the alarm| string | `"75"` | no |
+| region | Deployment region| string | `"eu-west-1"` | no |
+
+
+
+
 ## What does it do?
 ![Alt text](mod/stepfunctions_graph.png?raw=true)
 

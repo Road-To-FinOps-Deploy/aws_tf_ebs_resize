@@ -21,5 +21,5 @@ variable "threshold" {
 }
 
 variable "InstanceId" {
-  description = "the id of the instance you wish to use"
+  description = "The id of the instance you wish to use"
 }
