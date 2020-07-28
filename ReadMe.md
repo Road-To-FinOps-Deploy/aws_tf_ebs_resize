@@ -11,9 +11,8 @@
 
 
 ## Deploy
-aws-saml
-awsassume-sandbox
 
+have access to the account you wish to deploy in
 terraoform init
 terraform apply
 
@@ -36,6 +35,7 @@ This state machine is trigged by the custom cloud watch metric for low disk spac
 * tag snapshot
 * s3 upload of file for ec2
 * interagration into chat e.g. teams, slack
+* prvisoinsed IOPs
 
 Supporting links:
 https://aws.amazon.com/blogs/storage/automating-amazon-ebs-volume-resizing-with-aws-step-functions-and-aws-systems-manager/

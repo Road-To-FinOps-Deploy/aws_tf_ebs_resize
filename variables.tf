@@ -3,7 +3,6 @@ variable "region" {
 }
 
 variable "alarm_email" {
-  default = "stephanie.gooch@kpmg.co.uk"
 }
 
 variable "size_to_case_alert" {
@@ -14,4 +13,14 @@ variable "size_to_case_alert" {
 variable "increase_percentage" {
   default     = "0.1"
   description = "How big of increments to increase by"
+}
+
+variable "threshold" {
+  default     = "75"
+  description = "how high does the volumes utilised space need to be to trigger the alarm"
+}
+
+variable "InstanceId" {
+  description = "the id of the instance you wish to use"
+  default     = "i-0af41048342a925ff"
 }
