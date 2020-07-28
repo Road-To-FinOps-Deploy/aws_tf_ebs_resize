@@ -22,5 +22,4 @@ variable "threshold" {
 
 variable "InstanceId" {
   description = "the id of the instance you wish to use"
-  default     = "i-0af41048342a925ff"
 }
