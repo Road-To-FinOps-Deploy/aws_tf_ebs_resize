@@ -65,6 +65,8 @@ resource "aws_lambda_permission" "allow_cloudwatch_MODIFY_EBS" {
   #source_arn    = "${aws_cloudwatch_event_rule.MODIFY_EBS_cloudwatch_rule.arn}"
 }
 
+################
+
 data "archive_file" "execute_ssm_zip" {
   type        = "zip"
   source_file = "${path.module}/source/execute_ssm/lambda.py"
@@ -92,5 +94,24 @@ resource "aws_lambda_permission" "allow_cloudwatch_EXECUTE_SSM" {
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.EXECUTE_SSM.function_name
   principal     = "events.amazonaws.com"
-  #source_arn    = "${aws_cloudwatch_event_rule.EXECUTE_SSM_cloudwatch_rule.arn}"
 }
+
+##############
+
+data "archive_file" "check_os_zip" {
+  type        = "zip"
+  source_file = "${path.module}/source/check_os/lambda.py"
+  output_path = "${path.module}/output/check_os.zip"
+}
+
+resource "aws_lambda_function" "CHECK_OS" {
+  filename         = "${path.module}/output/check_os.zip"
+  function_name    = "CHECK_OS"
+  role             = aws_iam_role.iam_role_lambda.arn
+  handler          = "lambda.lambda_handler"
+  source_code_hash = data.archive_file.check_os_zip.output_base64sha256
+  runtime          = "python3.6"
+  memory_size      = "512"
+  timeout          = "150"
+}
+

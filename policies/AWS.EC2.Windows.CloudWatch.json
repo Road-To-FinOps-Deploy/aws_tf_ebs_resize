@@ -79,7 +79,7 @@
                 "Parameters": {
                     "AccessKey": "",
                     "SecretKey": "",
-                    "Region": "us-east-1",
+                    "Region": "eu-west-1",
                     "LogGroup": "Default-Log-Group",
                     "LogStream": "{instance_id}"
                 }
@@ -91,7 +91,7 @@
                 {
                     "AccessKey": "",
                     "SecretKey": "",
-                    "Region": "us-east-1",
+                    "Region": "eu-west-1",
                     "NameSpace": "Windows/Default"
                 }
             },

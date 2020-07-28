@@ -1,0 +1,24 @@
+{
+    "Records":[
+       {
+          "EventSource":"aws:sns",
+          "EventVersion":"1.0",
+          "EventSubscriptionArn":"arn:aws:sns:eu-west-1:<ACCOUNT_ID>:statemachine_trigger:448f0416-6935-42b0-a929-f14f27f610aa",
+          "Sns":{
+             "Type":"Notification",
+             "MessageId":"b42b7d93-a1e9-5a6e-967f-2ae6a466d6ec",
+             "TopicArn":"arn:aws:sns:eu-west-1:<ACCOUNT_ID>:statemachine_trigger",
+             "Subject":"ALARM: \"cloudwatch_metric_alarm_ebs_free_space\" in EU (Ireland)",
+             "Message":"{\"AlarmName\":\"cloudwatch_metric_alarm_ebs_free_space\",\"AlarmDescription\":\"This metric monitors ebs percentage of free space\",\"AWSAccountId\":\"<ACCOUNT_ID>\",\"NewStateValue\":\"ALARM\",\"NewStateReason\":\"Threshold Crossed: 2 datapoints [27.8966045379639 (30/06/20 09:16:00), 27.897825479507475 (30/06/20 09:14:00)] were greater than or equal to the threshold (10.0).\",\"StateChangeTime\":\"2020-06-30T09:18:06.972+0000\",\"Region\":\"EU (Ireland)\",\"AlarmArn\":\"arn:aws:cloudwatch:eu-west-1:<ACCOUNT_ID>:alarm:cloudwatch_metric_alarm_ebs_free_space\",\"OldStateValue\":\"INSUFFICIENT_DATA\",\"Trigger\":{\"MetricName\":\"FreeDiskPercentage\",\"Namespace\":\"Windows/Default\",\"StatisticType\":\"Statistic\",\"Statistic\":\"AVERAGE\",\"Unit\":null,\"Dimensions\":[{\"value\":\"<instance id>\",\"name\":\"InstanceId\"}],\"Period\":120,\"EvaluationPeriods\":2,\"ComparisonOperator\":\"GreaterThanOrEqualToThreshold\",\"Threshold\":10.0,\"TreatMissingData\":\"- TreatMissingData:                    missing\",\"EvaluateLowSampleCountPercentile\":\"\"}}",
+             "Timestamp":"2020-06-30T09:18:07.025Z",
+             "SignatureVersion":"1",
+             "Signature":"U0meoNFORhjAoAmc5tD6mTh/dccZO2U0rmgvMuxql+8BOUI1871+wN3oT9L5c5U52lrKFBUsOBwcjmMfe94mpd6X+KtQ78HuW2NqvEpjcCGkSxpb9W28SSEmAvgUoTfcHwJIXNBqyb1blKaZNxEkgJUqyP+IEsty2B9YmIlPPEdSNL8wx3NU9merj+VhTIoDjdWLlLJ03sv3ywhCs5uDJF29BnoyiT30W7bau+vJrOHQlgPm/P2tqmOi7yNGO9ZXp01BT9D4G3A669Yyfy1q9BSRxceb/DLsDP61X75s/d3qmddItKcZfs7DE7CY9/NHu48XsGOG2ozApNd6al7eDw==",
+             "SigningCertUrl":"https://sns.eu-west-1.amazonaws.com/SimpleNotificationService-a86cb10b4e1f29c941702d737128f7b6.pem",
+             "UnsubscribeUrl":"https://sns.eu-west-1.amazonaws.com/?Action=Unsubscribe&SubscriptionArn=arn:aws:sns:eu-west-1:<ACCOUNT_ID>:statemachine_trigger:448f0416-6935-42b0-a929-f14f27f610aa",
+             "MessageAttributes":{
+ 
+             }
+          }
+       }
+    ]
+ }
