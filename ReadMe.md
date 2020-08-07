@@ -66,6 +66,9 @@ https://stackoverflow.com/questions/37441225/how-to-monitor-free-disk-space-at-a
 https://docs.aws.amazon.com/powershell/latest/userguide/specifying-your-aws-credentials.html
 https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ec2-windows-volumes.html
 
+https://forums.aws.amazon.com/thread.jspa?start=25&threadID=310713&tstart=0
+https://n2ws.com/blog/how-to-guides/how-to-increase-the-size-of-an-aws-ebs-cloud-volume-attached-to-a-linux-machine
+
 ## Troubleshooting
 If your step function is failing saying the volume name is NA then made sure you enough permisson on the ec2
 Check the ec2 role example in policies

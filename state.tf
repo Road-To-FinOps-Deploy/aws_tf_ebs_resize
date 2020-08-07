@@ -28,7 +28,7 @@ resource "aws_sfn_state_machine" "sfn_state_machine" {
           {
             "Variable": "$.OS_Result",
             "StringEquals": "linux",
-            "Next": "FailState"
+            "Next": "SSM_GET_MAPPING"
           }
         ]
       },

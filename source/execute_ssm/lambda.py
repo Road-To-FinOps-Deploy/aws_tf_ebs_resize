@@ -11,8 +11,13 @@ def lambda_handler(event, context):
     print(event)
     client = boto3.client("ssm")
     Instance_Id = event.get("Instance_ID")
-    DocumentName = event.get("SSM_Document_Name")  # os.environ["SSM_DOCUMENT_NAME"]
-
+    OS_Result = event.get("OS_Result")
+    log.info(f"the OS is {OS_Result}")
+    if OS_Result == 'windows':
+        DocumentName = event.get("SSM_Document_Name_Windows")  
+    elif OS_Result == 'linux':
+        DocumentName = event.get("SSM_Document_Name_Linux")  
+    print(DocumentName)
     response = client.send_command(
         InstanceIds=[Instance_Id], DocumentName=DocumentName  #'ssm_ebs_mapping'
     )
