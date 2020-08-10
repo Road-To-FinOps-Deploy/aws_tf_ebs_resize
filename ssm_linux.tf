@@ -18,8 +18,9 @@ resource "aws_ssm_document" "ssm_ebs_mapping_linux" {
         },
         "inputs": {
           "runCommand": 
-            "lsblk"
-           
+            ["lsblk"
+            "curl http://169.254.169.254/latest/meta-data/block-device-mapping/ephemeral0"
+            ]
         }
       }
     ]
