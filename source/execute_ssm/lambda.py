@@ -16,7 +16,9 @@ def lambda_handler(event, context):
     if OS_Result == 'windows':
         DocumentName = event.get("SSM_Document_Name_Windows")  
     elif OS_Result == 'linux':
-        DocumentName = event.get("SSM_Document_Name_Linux")  
+        DocumentName = event.get("SSM_Document_Name_Linux")
+    else:
+        DocumentName = event.get("SSM_Document_Name")   
     print(DocumentName)
     response = client.send_command(
         InstanceIds=[Instance_Id], DocumentName=DocumentName  #'ssm_ebs_mapping'
@@ -73,8 +75,6 @@ def lambda_handler(event, context):
             
         else:
             log.error(f"Please check command results Command_Id={Command_Id}")
-
-    
 
     else:
         if response["Status"] == "Success":
