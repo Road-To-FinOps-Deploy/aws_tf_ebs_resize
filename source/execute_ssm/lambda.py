@@ -37,7 +37,7 @@ def lambda_handler(event, context):
             EbsVolumeId = output["EbsVolumeId"]
             DriveLetter = output["DriveLetter"]
             print(
-                f"Outputinfo Device={Device}, EbsVolumeId={EbsVolumeId},DriveLetter={DriveLetter}"
+                f"Outputinfo Device={Device}, EbsVolumeId={EbsVolumeId}, DriveLetter={DriveLetter}"
             )
             log.info(
                 f"Output from command {Command_Id} info Device={Device}, EbsVolumeId={EbsVolumeId},DriveLetter={DriveLetter}"
@@ -52,11 +52,11 @@ def lambda_handler(event, context):
             log.error(f"Please check command results Command_Id={Command_Id}")
     elif DocumentName == "ssm_ebs_mapping_linux":
         if response["Status"] == "Success":
-            output = response["StandardOutputContent"].split('\n')
-            data =  output[1].split('    ')
-            Device = f"/dev/{data[0]}"
-            EbsVolumeId = ""
-            DriveLetter = ""
+            output = response["StandardOutputContent"]
+            js= json.loads(output)
+            EbsVolumeId = js['Volumes'][0]['Attachments'][0]['VolumeId']
+            Device = js['Volumes'][0]['Attachments'][0]['Device']
+            DriveLetter = Device = js['Volumes'][0]['Attachments'][0]['Device']
             print(
                 f"Outputinfo Device={Device}, EbsVolumeId={EbsVolumeId},DriveLetter={DriveLetter}"
             )
@@ -81,4 +81,3 @@ def lambda_handler(event, context):
 
             log.info(f"CommandId: {Command_Id}")
             return {"CommandId": Command_Id}
-lambda_handler(None, None)
