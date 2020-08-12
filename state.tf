@@ -72,7 +72,7 @@ resource "aws_sfn_state_machine" "sfn_state_machine" {
           {
             "Variable": "$.OS_Result",
             "StringEquals": "linux",
-            "Next": "SSM_PARTITION_LINUX"
+            "Next": "wait_twenty_seconds"
           }
         ]
       },
@@ -91,6 +91,11 @@ resource "aws_sfn_state_machine" "sfn_state_machine" {
                "Next": "FailState"
             }
          ]
+      },
+      "wait_twenty_seconds": {
+        "Type": "Wait",
+        "Seconds": 20,
+        "Next": "SSM_PARTITION_LINUX"
       },
       "SSM_PARTITION_LINUX": {
         "Type": "Task",
