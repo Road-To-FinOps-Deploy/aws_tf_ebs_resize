@@ -31,9 +31,8 @@ def lambda_handler(event, context):
         CommandId=Command_Id, InstanceId=Instance_Id
     )
     print(response)
-
-    if DocumentName == "ssm_ebs_mapping_windows":
-        if response["Status"] == "Success":
+    if response["Status"] == "Success":
+        if DocumentName == "ssm_ebs_mapping_windows":
             output = json.loads(response["StandardOutputContent"])
             Device = output["Device"]
             EbsVolumeId = output["EbsVolumeId"]
@@ -50,10 +49,8 @@ def lambda_handler(event, context):
                 "EbsVolumeId": EbsVolumeId,
                 "DriveLetter": DriveLetter,
             }
-        else:
-            log.error(f"Please check command results Command_Id={Command_Id}")
-    elif DocumentName == "ssm_ebs_mapping_linux":
-        if response["Status"] == "Success":
+            
+        elif DocumentName == "ssm_ebs_mapping_linux":
             output = response["StandardOutputContent"]
             js= json.loads(output)
             EbsVolumeId = js['Volumes'][0]['Attachments'][0]['VolumeId']
@@ -72,12 +69,9 @@ def lambda_handler(event, context):
                 "EbsVolumeId": EbsVolumeId,
                 "DriveLetter": DriveLetter,
             }
-            
         else:
-            log.error(f"Please check command results Command_Id={Command_Id}")
-
-    else:
-        if response["Status"] == "Success":
-
             log.info(f"CommandId: {Command_Id}")
             return {"CommandId": Command_Id}
+    else:
+        log.error(f"Please check command results Command_Id={Command_Id}")
+        raise
