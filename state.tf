@@ -28,7 +28,7 @@ resource "aws_sfn_state_machine" "sfn_state_machine" {
           {
             "Variable": "$.OS_Result",
             "StringEquals": "linux",
-            "Next": "FailState"
+            "Next": "SSM_GET_MAPPING"
           }
         ]
       },
@@ -47,7 +47,7 @@ resource "aws_sfn_state_machine" "sfn_state_machine" {
       "MODIFY_EBS": {
         "Type": "Task",
         "Resource": "${aws_lambda_function.MODIFY_EBS.arn}",
-        "Next": "SSM_PARTITION",
+        "Next": "ChoiceStateoverPartition",
         "ResultPath": "$.MODIFY_EBSResult",
         "Parameters": {
           "Device.$": "$.SSM_Result.Device",
@@ -61,13 +61,49 @@ resource "aws_sfn_state_machine" "sfn_state_machine" {
           }
         ]
       },
-      "SSM_PARTITION": {
+      "ChoiceStateoverPartition": {
+        "Type": "Choice",
+        "Choices": [
+          {
+            "Variable": "$.OS_Result",
+            "StringEquals": "windows",
+            "Next": "SSM_PARTITION_WINDOWS"
+          },
+          {
+            "Variable": "$.OS_Result",
+            "StringEquals": "linux",
+            "Next": "wait_twenty_seconds"
+          }
+        ]
+      },
+      "SSM_PARTITION_WINDOWS": {
         "Type": "Task",
         "Resource": "${aws_lambda_function.EXECUTE_SSM.arn}",
         "Next": "ChoiceStateover100email",
         "ResultPath": "$.SSM_PARTITION_Result",
         "Parameters": {
           "SSM_Document_Name": "${aws_ssm_document.ssm_ebs_partition_windows.name}",
+          "Instance_ID.$": "$.SSM_Result.Instance_ID"
+        },
+        "Catch": [
+            {
+               "ErrorEquals": ["States.ALL"],
+               "Next": "FailState"
+            }
+         ]
+      },
+      "wait_twenty_seconds": {
+        "Type": "Wait",
+        "Seconds": 20,
+        "Next": "SSM_PARTITION_LINUX"
+      },
+      "SSM_PARTITION_LINUX": {
+        "Type": "Task",
+        "Resource": "${aws_lambda_function.EXECUTE_SSM.arn}",
+        "Next": "ChoiceStateover100email",
+        "ResultPath": "$.SSM_PARTITION_Result",
+        "Parameters": {
+          "SSM_Document_Name": "${aws_ssm_document.ssm_ebs_partition_linux.name}",
           "Instance_ID.$": "$.SSM_Result.Instance_ID"
         },
         "Catch": [

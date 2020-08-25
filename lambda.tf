@@ -16,8 +16,9 @@ resource "aws_lambda_function" "EXECUTION_STATE" {
 
   environment {
     variables = {
-      STATE_MACHINE_ARN = aws_sfn_state_machine.sfn_state_machine.id
-      SSM_DOCUMENT      = aws_ssm_document.ssm_ebs_mapping_windows.name
+      STATE_MACHINE_ARN    = aws_sfn_state_machine.sfn_state_machine.id
+      SSM_DOCUMENT_WINDOWS = aws_ssm_document.ssm_ebs_mapping_windows.name
+      SSM_DOCUMENT_LINUX   = aws_ssm_document.ssm_ebs_mapping_linux.name
     }
   }
 }
@@ -82,11 +83,6 @@ resource "aws_lambda_function" "EXECUTE_SSM" {
   runtime          = "python3.6"
   memory_size      = "512"
   timeout          = "150"
-  environment {
-    variables = {
-      SSM_DOCUMENT_NAME = aws_ssm_document.ssm_ebs_mapping_windows.name
-    }
-  }
 }
 
 resource "aws_lambda_permission" "allow_cloudwatch_EXECUTE_SSM" {

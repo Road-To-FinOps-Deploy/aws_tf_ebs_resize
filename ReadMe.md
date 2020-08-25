@@ -1,13 +1,27 @@
 
 # Automating Amazon EBS Volume-resizing with AWS Step Functions and AWS Systems Manager
 
+This can be used for windows or linux instances. Use vars to choose which one.
 
 ## Prerec
+### Windows:
+* https://stackoverflow.com/questions/37441225/how-to-monitor-free-disk-space-at-aws-ec2-with-cloud-watch-in-windows
 * EC2 Role has access to cloud watch and SSM
-* AWS.EC2.Windows.CloudWatch added to server  C:\Program Files\Amazon\SSM\Plugins\awsCloudWatch\
+* AWS.EC2.Windows.CloudWatch.json added to server  C:\Program Files\Amazon\SSM\Plugins\awsCloudWatch\
 * Change Region if needed
 * Run Powershell as administrator and run Restart-Service AmazonSSMAgent
 * Update the Cloudwatch with the EC2 ID
+
+### Linux
+* https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/mon-scripts.html
+* sudo yum install -y perl-Switch perl-DateTime perl-Sys-Syslog perl-LWP-Protocol-https perl-Digest-SHA.x86_64
+* curl https://aws-cloudwatch.s3.amazonaws.com/downloads/CloudWatchMonitoringScripts-1.2.2.zip -O
+* unzip CloudWatchMonitoringScripts-1.2.2.zip && \
+  rm CloudWatchMonitoringScripts-1.2.2.zip && \
+  cd aws-scripts-mon
+* ./mon-put-instance-data.pl --mem-used-incl-cache-buff --mem-util --mem-used --mem-avail
+or to use cron */5 * * * * ~/aws-scripts-mon/mon-put-instance-data.pl --mem-used-incl-cache-buff --mem-util --disk-space-util --disk-path=/ --from-cron
+
 
 
 ## Deploy
@@ -36,7 +50,8 @@ module "aws_tf_ebs_resize" {
 | increase\_percentage | How big of increments to increase by| string | `"0.1"` | no |
 | threshold | How high does the volumes utilised space need to be to trigger the alarm| string | `"75"` | no |
 | region | Deployment region| string | `"eu-west-1"` | no |
-
+| namespace | The custom namespace in metrics| string | `"Windows/Default"` | no |
+| metric_name | The metric the alarm is watching| string | `"FreeDiskPercentage"` | no |
 
 
 
@@ -65,6 +80,10 @@ https://aws.amazon.com/blogs/storage/automating-amazon-ebs-volume-resizing-with-
 https://stackoverflow.com/questions/37441225/how-to-monitor-free-disk-space-at-aws-ec2-with-cloud-watch-in-windows
 https://docs.aws.amazon.com/powershell/latest/userguide/specifying-your-aws-credentials.html
 https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ec2-windows-volumes.html
+
+https://forums.aws.amazon.com/thread.jspa?start=25&threadID=310713&tstart=0
+https://n2ws.com/blog/how-to-guides/how-to-increase-the-size-of-an-aws-ebs-cloud-volume-attached-to-a-linux-machine
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/mon-scripts.html
 
 ## Troubleshooting
 If your step function is failing saying the volume name is NA then made sure you enough permisson on the ec2
