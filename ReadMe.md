@@ -19,6 +19,7 @@
   rm CloudWatchMonitoringScripts-1.2.2.zip && \
   cd aws-scripts-mon
 * ./mon-put-instance-data.pl --mem-used-incl-cache-buff --mem-util --mem-used --mem-avail
+or to use cron */5 * * * * ~/aws-scripts-mon/mon-put-instance-data.pl --mem-used-incl-cache-buff --mem-util --disk-space-util --disk-path=/ --from-cron
 
 
 
