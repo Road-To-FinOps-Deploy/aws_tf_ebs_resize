@@ -3,11 +3,22 @@
 
 
 ## Prerec
+### Windows:
 * EC2 Role has access to cloud watch and SSM
 * AWS.EC2.Windows.CloudWatch added to server  C:\Program Files\Amazon\SSM\Plugins\awsCloudWatch\
 * Change Region if needed
 * Run Powershell as administrator and run Restart-Service AmazonSSMAgent
 * Update the Cloudwatch with the EC2 ID
+
+### Linux
+* https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/mon-scripts.html
+* sudo yum install -y perl-Switch perl-DateTime perl-Sys-Syslog perl-LWP-Protocol-https perl-Digest-SHA.x86_64
+* curl https://aws-cloudwatch.s3.amazonaws.com/downloads/CloudWatchMonitoringScripts-1.2.2.zip -O
+* unzip CloudWatchMonitoringScripts-1.2.2.zip && \
+  rm CloudWatchMonitoringScripts-1.2.2.zip && \
+  cd aws-scripts-mon
+* ./mon-put-instance-data.pl --mem-used-incl-cache-buff --mem-util --mem-used --mem-avail
+
 
 
 ## Deploy
@@ -68,6 +79,7 @@ https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ec2-windows-volumes.html
 
 https://forums.aws.amazon.com/thread.jspa?start=25&threadID=310713&tstart=0
 https://n2ws.com/blog/how-to-guides/how-to-increase-the-size-of-an-aws-ebs-cloud-volume-attached-to-a-linux-machine
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/mon-scripts.html
 
 ## Troubleshooting
 If your step function is failing saying the volume name is NA then made sure you enough permisson on the ec2
