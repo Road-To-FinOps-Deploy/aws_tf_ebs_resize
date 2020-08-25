@@ -1,6 +1,7 @@
 
 # Automating Amazon EBS Volume-resizing with AWS Step Functions and AWS Systems Manager
 
+This can be used for windows or linux instances. Use vars to choose which one.
 
 ## Prerec
 ### Windows:
@@ -49,7 +50,8 @@ module "aws_tf_ebs_resize" {
 | increase\_percentage | How big of increments to increase by| string | `"0.1"` | no |
 | threshold | How high does the volumes utilised space need to be to trigger the alarm| string | `"75"` | no |
 | region | Deployment region| string | `"eu-west-1"` | no |
-
+| namespace | The custom namespace in metrics| string | `"Windows/Default"` | no |
+| metric_name | The metric the alarm is watching| string | `"FreeDiskPercentage"` | no |
 
 
 
