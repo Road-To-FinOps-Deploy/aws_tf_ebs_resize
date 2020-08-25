@@ -4,8 +4,9 @@
 
 ## Prerec
 ### Windows:
+* https://stackoverflow.com/questions/37441225/how-to-monitor-free-disk-space-at-aws-ec2-with-cloud-watch-in-windows
 * EC2 Role has access to cloud watch and SSM
-* AWS.EC2.Windows.CloudWatch added to server  C:\Program Files\Amazon\SSM\Plugins\awsCloudWatch\
+* AWS.EC2.Windows.CloudWatch.json added to server  C:\Program Files\Amazon\SSM\Plugins\awsCloudWatch\
 * Change Region if needed
 * Run Powershell as administrator and run Restart-Service AmazonSSMAgent
 * Update the Cloudwatch with the EC2 ID
