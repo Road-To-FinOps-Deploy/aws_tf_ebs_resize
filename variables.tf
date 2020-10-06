@@ -5,6 +5,10 @@ variable "region" {
 variable "alarm_email" {
 }
 
+variable "bucket_name"{
+  
+}
+
 variable "size_to_case_alert" {
   default     = "100"
   description = "If the volume goes above this size send an alert to the email subscriber above"

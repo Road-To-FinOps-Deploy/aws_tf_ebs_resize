@@ -5,12 +5,12 @@ This can be used for windows or linux instances. Use vars to choose which one.
 
 ## Prerec
 ### Windows:
-* https://stackoverflow.com/questions/37441225/how-to-monitor-free-disk-space-at-aws-ec2-with-cloud-watch-in-windows
-* EC2 Role has access to cloud watch and SSM
-* AWS.EC2.Windows.CloudWatch.json added to server  C:\Program Files\Amazon\SSM\Plugins\awsCloudWatch\
-* Change Region if needed
-* Run Powershell as administrator and run Restart-Service AmazonSSMAgent
-* Update the Cloudwatch with the EC2 ID
+* In the Console go to 'AWS Systems Manager'
+* Click on 'Documents'
+* Run the 'ssm_SetupWindows' against the Windows instance you wish to monitor
+
+
+
 
 ### Linux
 * https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/mon-scripts.html
@@ -24,21 +24,20 @@ or to use ``crontab -e`` and paste>  */5 * * * * ~/aws-scripts-mon/mon-put-insta
 Notes you exit by doing esc, :wq!
 
 
+## Usage
+
+module "aws_tf_ebs_resize" {
+  source = "/aws_tf_ebs_resize"
+  alarm_email = "example@email.com"
+  InstanceId = "i-1234567890"
+  bucket_name = "Your bucket name"
+}
 
 ## Deploy
 
 have access to the account you wish to deploy in
 terraoform init
 terraform apply
-
-
-## Usage
-
-module "aws_tf_ebs_resize" {
-  source = "/aws_tf_ebs_volumes_cleaner"
-  alarm_email = "example@email.com"
-  InstanceId = "i-1234567890"
-}
 
 
 ## Optional Inputs
@@ -90,3 +89,17 @@ https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/mon-scripts.html
 ## Troubleshooting
 If your step function is failing saying the volume name is NA then made sure you enough permisson on the ec2
 Check the ec2 role example in policies
+
+### Manule setup of json file
+* https://stackoverflow.com/questions/37441225/how-to-monitor-free-disk-space-at-aws-ec2-with-cloud-watch-in-windows
+* EC2 Role has access to cloud watch, SSM and S3
+#### Manule
+* Copy from polciies folder AWS.EC2.Windows.CloudWatch.json added to server  C:\Program Files\Amazon\SSM\Plugins\awsCloudWatch\
+
+#### AWS CLI
+* ```aws s3 cp s3://<bucketname>/AWS.EC2.Windows.CloudWatch.json C:\Program Files\Amazon\SSM\Plugins\awsCloudWatch\AWS.EC2.Windows.CloudWatch.json```
+ 
+* Change Region if needed
+* Run Powershell as administrator and run 
+```Restart-Service AmazonSSMAgent```
+* Update the Cloudwatch with the EC2 ID
