@@ -20,7 +20,8 @@ This can be used for windows or linux instances. Use vars to choose which one.
   rm CloudWatchMonitoringScripts-1.2.2.zip && \
   cd aws-scripts-mon
 * ./mon-put-instance-data.pl --mem-used-incl-cache-buff --mem-util --mem-used --mem-avail
-or to use cron */5 * * * * ~/aws-scripts-mon/mon-put-instance-data.pl --mem-used-incl-cache-buff --mem-util --disk-space-util --disk-path=/ --from-cron
+or to use ``crontab -e`` and paste>  */5 * * * * ~/aws-scripts-mon/mon-put-instance-data.pl --mem-used-incl-cache-buff --mem-util --disk-space-util --disk-path=/ --from-cron
+Notes you exit by doing esc, :wq!
 
 
 
@@ -64,10 +65,11 @@ This state machine is trigged by the custom cloud watch metric for low disk spac
 * Increase by deafult 10% 
 * Partitions the volume to be able to use the new size
 * if over 100GB (deafult) will send an email
+* increase must be bigger than 1 on size of volume
 
 
 ## To add
-* linux 
+
 * mutliple volumes
 * pass letter of volume into partition
 * tag snapshot
