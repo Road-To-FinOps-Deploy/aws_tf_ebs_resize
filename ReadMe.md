@@ -46,6 +46,7 @@ terraform apply
 |------|-------------|:----:|:-----:|:-----:|
 | alarm\_email| email address of person to alert if gb goes over 100| string | `""` | yes |
 | InstanceId | The id of the instance you wish to use| string | `""` | yes |
+| bucket_name | The Name of the Bucket the cloudwatch file will be places| string | `""` | yes |
 | size\_to\_case\_alert | At what GB size would you like to be notified | `"100"` | no |
 | increase\_percentage | How big of increments to increase by| string | `"0.1"` | no |
 | threshold | How high does the volumes utilised space need to be to trigger the alarm| string | `"75"` | no |
