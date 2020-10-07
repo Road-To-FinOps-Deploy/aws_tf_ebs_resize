@@ -129,8 +129,8 @@ resource "aws_ssm_document" "ssm_ebs_partition_windows" {
 DOC
 }
 
-resource "aws_ssm_document" "ssm_Setup_Windows" {
-  name          = "ssm_setup_windows"
+resource "aws_ssm_document" "ssm_Setup_windows" {
+  name          = "ssm_SetupWindows"
   document_type = "Command"
 
   content = <<DOC
