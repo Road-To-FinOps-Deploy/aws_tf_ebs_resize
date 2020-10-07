@@ -4,23 +4,9 @@
 This can be used for windows or linux instances. Use vars to choose which one.
 
 ## Prerec
-### Windows:
 * In the Console go to 'AWS Systems Manager'
 * Click on 'Documents'
-* Run the 'ssm_SetupWindows' against the Windows instance you wish to monitor
-
-
-
-### Linux
-* https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/mon-scripts.html
-* sudo yum install -y perl-Switch perl-DateTime perl-Sys-Syslog perl-LWP-Protocol-https perl-Digest-SHA.x86_64
-* curl https://aws-cloudwatch.s3.amazonaws.com/downloads/CloudWatchMonitoringScripts-1.2.2.zip -O
-* unzip CloudWatchMonitoringScripts-1.2.2.zip && \
-  rm CloudWatchMonitoringScripts-1.2.2.zip && \
-  cd aws-scripts-mon
-* ./mon-put-instance-data.pl --mem-used-incl-cache-buff --mem-util --mem-used --mem-avail
-or to use ``crontab -e`` and paste>  */5 * * * * ~/aws-scripts-mon/mon-put-instance-data.pl --mem-used-incl-cache-buff --mem-util --disk-space-util --disk-path=/ --from-cron
-Notes you exit by doing esc, :wq!
+* Run the 'ssm_SetupWindows' or 'ssm_linux_setup' against the  instance you wish to monitor
 
 
 ## Usage
@@ -91,6 +77,7 @@ If your step function is failing saying the volume name is NA then made sure you
 Check the ec2 role example in policies
 
 ### Manule setup of json file
+
 * https://stackoverflow.com/questions/37441225/how-to-monitor-free-disk-space-at-aws-ec2-with-cloud-watch-in-windows
 * EC2 Role has access to cloud watch, SSM and S3
 #### Manule
@@ -103,3 +90,15 @@ Check the ec2 role example in policies
 * Run Powershell as administrator and run 
 ```Restart-Service AmazonSSMAgent```
 * Update the Cloudwatch with the EC2 ID
+
+
+### Linux
+* https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/mon-scripts.html
+* sudo yum install -y perl-Switch perl-DateTime perl-Sys-Syslog perl-LWP-Protocol-https perl-Digest-SHA.x86_64
+* curl https://aws-cloudwatch.s3.amazonaws.com/downloads/CloudWatchMonitoringScripts-1.2.2.zip -O
+* unzip CloudWatchMonitoringScripts-1.2.2.zip && \
+  rm CloudWatchMonitoringScripts-1.2.2.zip && \
+  cd aws-scripts-mon
+* ./mon-put-instance-data.pl --mem-used-incl-cache-buff --mem-util --mem-used --mem-avail
+or to use ``crontab -e`` and paste>  */5 * * * * ~/aws-scripts-mon/mon-put-instance-data.pl --mem-used-incl-cache-buff --mem-util --disk-space-util --disk-path=/ --from-cron
+Notes you exit by doing esc, :wq!
