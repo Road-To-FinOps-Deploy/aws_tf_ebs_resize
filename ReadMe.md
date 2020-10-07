@@ -11,7 +11,6 @@ This can be used for windows or linux instances. Use vars to choose which one.
 
 
 
-
 ### Linux
 * https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/mon-scripts.html
 * sudo yum install -y perl-Switch perl-DateTime perl-Sys-Syslog perl-LWP-Protocol-https perl-Digest-SHA.x86_64

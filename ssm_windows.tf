@@ -129,8 +129,8 @@ resource "aws_ssm_document" "ssm_ebs_partition_windows" {
 DOC
 }
 
-resource "aws_ssm_document" "ssm_setup_windows" {
-  name          = "ssm_SetupWindows"
+resource "aws_ssm_document" "ssm_Setup_Windows" {
+  name          = "ssm_setup_windows"
   document_type = "Command"
 
   content = <<DOC
@@ -150,7 +150,7 @@ resource "aws_ssm_document" "ssm_setup_windows" {
         "inputs": {
           "runCommand": [
            "Read-S3Object -BucketName ${var.bucket_name} -Key AWS.EC2.Windows.CloudWatch.json -File 'C:\\Program Files\\Amazon\\SSM\\Plugins\\awsCloudWatch\\AWS.EC2.Windows.CloudWatch.json'",
-            "Restart-Service AmazonSSMAgent"
+           "Restart-Service AmazonSSMAgent"
            ]
         }
       }
