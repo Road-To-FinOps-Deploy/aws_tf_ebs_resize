@@ -86,7 +86,8 @@ resource "aws_ssm_document" "ssm_linux_setup" {
             "unzip CloudWatchMonitoringScripts-1.2.2.zip && \\",
             "rm CloudWatchMonitoringScripts-1.2.2.zip && \\",
             "cd aws-scripts-mon",
-            "./mon-put-instance-data.pl --mem-used-incl-cache-buff --mem-util --mem-used --mem-avail"
+            "(crontab -l 2>/dev/null; echo "*/5 * * * * ~/aws-scripts-mon/mon-put-instance-data.pl --mem-used-incl-cache-buff --mem-util --disk-space-util --disk-path=/ --from-cron") | crontab -
+"
             ]
         }
       }
