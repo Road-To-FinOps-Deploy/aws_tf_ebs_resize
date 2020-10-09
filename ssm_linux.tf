@@ -58,3 +58,47 @@ resource "aws_ssm_document" "ssm_ebs_partition_linux" {
   }
 DOC
 }
+
+resource "aws_ssm_document" "ssm_linux_setup" {
+  name          = "ssm_linux_setup"
+  document_type = "Command"
+
+  content = <<DOC
+  {
+    "schemaVersion": "2.2",
+    "description": "ssm_linux_setup",
+    "mainSteps": [
+      {
+        "name": "ssm_linux_setup",
+        "action": "aws:runShellScript",
+        "precondition": {
+          "StringEquals": [
+            "platformType",
+            "Linux"
+          ]
+        },
+        "inputs": {
+          "runCommand": 
+            [
+            "cd /home/ec2-user",
+            "sudo yum install -y perl-Switch perl-DateTime perl-Sys-Syslog perl-LWP-Protocol-https perl-Digest-SHA.x86_64",
+            "curl https://aws-cloudwatch.s3.amazonaws.com/downloads/CloudWatchMonitoringScripts-1.2.2.zip -O",
+            "unzip CloudWatchMonitoringScripts-1.2.2.zip && \\",
+            "rm CloudWatchMonitoringScripts-1.2.2.zip && \\",
+            "cd aws-scripts-mon",
+            "./mon-put-instance-data.pl --mem-used-incl-cache-buff --mem-util --mem-used --mem-avail",
+            "(crontab -l 2>/dev/null; echo '*/5 * * * * ~/aws-scripts-mon/mon-put-instance-data.pl --mem-used-incl-cache-buff --mem-util --disk-space-util --disk-path=/ --from-cron') | crontab -"
+            ]
+        }
+      }
+    ]
+  }
+DOC
+}
+
+
+
+
+
+
+

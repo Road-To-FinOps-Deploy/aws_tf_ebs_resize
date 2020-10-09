@@ -4,26 +4,19 @@
 This can be used for windows or linux instances. Use vars to choose which one.
 
 ## Prerec
-### Windows:
-* https://stackoverflow.com/questions/37441225/how-to-monitor-free-disk-space-at-aws-ec2-with-cloud-watch-in-windows
-* EC2 Role has access to cloud watch and SSM
-* AWS.EC2.Windows.CloudWatch.json added to server  C:\Program Files\Amazon\SSM\Plugins\awsCloudWatch\
-* Change Region if needed
-* Run Powershell as administrator and run Restart-Service AmazonSSMAgent
-* Update the Cloudwatch with the EC2 ID
-
-### Linux
-* https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/mon-scripts.html
-* sudo yum install -y perl-Switch perl-DateTime perl-Sys-Syslog perl-LWP-Protocol-https perl-Digest-SHA.x86_64
-* curl https://aws-cloudwatch.s3.amazonaws.com/downloads/CloudWatchMonitoringScripts-1.2.2.zip -O
-* unzip CloudWatchMonitoringScripts-1.2.2.zip && \
-  rm CloudWatchMonitoringScripts-1.2.2.zip && \
-  cd aws-scripts-mon
-* ./mon-put-instance-data.pl --mem-used-incl-cache-buff --mem-util --mem-used --mem-avail
-or to use ``crontab -e`` and paste>  */5 * * * * ~/aws-scripts-mon/mon-put-instance-data.pl --mem-used-incl-cache-buff --mem-util --disk-space-util --disk-path=/ --from-cron
-Notes you exit by doing esc, :wq!
+* In the Console go to 'AWS Systems Manager'
+* Click on 'Documents'
+* Run the 'ssm_SetupWindows' or 'ssm_linux_setup' against the  instance you wish to monitor
 
 
+## Usage
+
+module "aws_tf_ebs_resize" {
+  source = "/aws_tf_ebs_resize"
+  alarm_email = "example@email.com"
+  InstanceId = "i-1234567890"
+  bucket_name = "Your bucket name"
+}
 
 ## Deploy
 
@@ -32,21 +25,13 @@ terraoform init
 terraform apply
 
 
-## Usage
-
-module "aws_tf_ebs_resize" {
-  source = "/aws_tf_ebs_volumes_cleaner"
-  alarm_email = "example@email.com"
-  InstanceId = "i-1234567890"
-}
-
-
 ## Optional Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
 | alarm\_email| email address of person to alert if gb goes over 100| string | `""` | yes |
 | InstanceId | The id of the instance you wish to use| string | `""` | yes |
+| bucket_name | The Name of the Bucket the cloudwatch file will be places| string | `""` | yes |
 | size\_to\_case\_alert | At what GB size would you like to be notified | `"100"` | no |
 | increase\_percentage | How big of increments to increase by| string | `"0.1"` | no |
 | threshold | How high does the volumes utilised space need to be to trigger the alarm| string | `"75"` | no |
@@ -90,3 +75,30 @@ https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/mon-scripts.html
 ## Troubleshooting
 If your step function is failing saying the volume name is NA then made sure you enough permisson on the ec2
 Check the ec2 role example in policies
+
+### Manule setup of json file
+
+* https://stackoverflow.com/questions/37441225/how-to-monitor-free-disk-space-at-aws-ec2-with-cloud-watch-in-windows
+* EC2 Role has access to cloud watch, SSM and S3
+#### Manule
+* Copy from polciies folder AWS.EC2.Windows.CloudWatch.json added to server  C:\Program Files\Amazon\SSM\Plugins\awsCloudWatch\
+
+#### AWS CLI
+* ```aws s3 cp s3://<bucketname>/AWS.EC2.Windows.CloudWatch.json C:\Program Files\Amazon\SSM\Plugins\awsCloudWatch\AWS.EC2.Windows.CloudWatch.json```
+ 
+* Change Region if needed
+* Run Powershell as administrator and run 
+```Restart-Service AmazonSSMAgent```
+* Update the Cloudwatch with the EC2 ID
+
+
+### Linux
+* https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/mon-scripts.html
+* sudo yum install -y perl-Switch perl-DateTime perl-Sys-Syslog perl-LWP-Protocol-https perl-Digest-SHA.x86_64
+* curl https://aws-cloudwatch.s3.amazonaws.com/downloads/CloudWatchMonitoringScripts-1.2.2.zip -O
+* unzip CloudWatchMonitoringScripts-1.2.2.zip && \
+  rm CloudWatchMonitoringScripts-1.2.2.zip && \
+  cd aws-scripts-mon
+* ./mon-put-instance-data.pl --mem-used-incl-cache-buff --mem-util --mem-used --mem-avail
+or to use ``crontab -e`` and paste>  */5 * * * * ~/aws-scripts-mon/mon-put-instance-data.pl --mem-used-incl-cache-buff --mem-util --disk-space-util --disk-path=/ --from-cron
+Notes you exit by doing esc, :wq!
