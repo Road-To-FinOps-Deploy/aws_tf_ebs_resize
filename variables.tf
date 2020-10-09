@@ -5,8 +5,8 @@ variable "region" {
 variable "alarm_email" {
 }
 
-variable "bucket_name"{
-  
+variable "bucket_name" {
+
 }
 
 variable "size_to_case_alert" {
@@ -29,11 +29,11 @@ variable "InstanceId" {
 }
 
 variable "namespace" {
-  default = "Windows/Default"
+  default     = "Windows/Default"
   description = "Windows/Default for windows or System/Linux"
 }
 
 variable "metric_name" {
-  default = "FreeDiskPercentage"
-  description = "FreeDiskPercentage for windows or MemoryUsed" 
+  default     = "FreeDiskPercentage"
+  description = "FreeDiskPercentage for windows or MemoryUsed"
 }
