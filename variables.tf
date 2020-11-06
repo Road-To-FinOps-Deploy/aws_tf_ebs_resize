@@ -25,6 +25,7 @@ variable "threshold" {
 }
 
 variable "InstanceId" {
+  default = ""
   description = "The id of the instance you wish to use"
 }
 
@@ -36,4 +37,15 @@ variable "namespace" {
 variable "metric_name" {
   default     = "FreeDiskPercentage"
   description = "FreeDiskPercentage for windows or MemoryUsed"
+}
+
+
+variable "WindowsInstanceId" {
+  description = "The id of the instance you wish to use for windows"
+  default = "i-"
+}
+
+variable "LinuxInstanceId" {
+  description = "The id of the instance you wish to use for linux"
+  default = "i-"
 }

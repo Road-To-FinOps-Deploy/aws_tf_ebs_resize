@@ -18,6 +18,10 @@ module "aws_tf_ebs_resize" {
   bucket_name = "Your bucket name"
 }
 
+If you are using linux then add
+metric_name = "MemoryUsed"
+namespace = "System/Linux"
+
 ## Deploy
 
 have access to the account you wish to deploy in
