@@ -18,7 +18,12 @@
                 "ec2:DescribeVolumeStatus",
                 "logs:*",
                 "ssm:*",
-                "ec2messages:*"
+                "ec2messages:*",
+                "ssm:SendCommand", 
+                "ssm:UpdateInstanceInformation",
+                "ssm:ListCommands",
+                "ssm:ListCommandInvocations",
+                "ssm:GetDocument"
             ],
             "Resource": "*"
         },

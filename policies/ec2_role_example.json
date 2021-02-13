@@ -22,11 +22,6 @@
     "Statement": [
         {
             "Effect": "Allow",
-            "Action": "*",
-            "Resource": "*"
-        },
-        {
-            "Effect": "Allow",
             "Action": [
                 "cloudwatch:PutMetricData",
                 "ds:CreateComputer",
