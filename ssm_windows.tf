@@ -5,12 +5,12 @@ resource "aws_ssm_document" "ssm_ebs_mapping_windows" {
   content = <<DOC
   {
   "schemaVersion": "2.2",
-  "description": "Command Document Example JSON Template",
+  "description": "Map Disk Drives to EBS Volumes",
   "parameters": {
     "Message": {
       "type": "String",
       "description": "Example",
-      "default": "Hello World"
+      "default": "Hello EC2 User"
     }
   },
   "mainSteps": [
