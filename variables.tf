@@ -25,7 +25,7 @@ variable "threshold" {
 }
 
 variable "InstanceId" {
-  default = ""
+  default     = ""
   description = "The id of the instance you wish to use"
 }
 
@@ -42,10 +42,10 @@ variable "metric_name" {
 
 variable "WindowsInstanceId" {
   description = "The id of the instance you wish to use for windows"
-  default = "i-"
+  default     = "i-"
 }
 
 variable "LinuxInstanceId" {
   description = "The id of the instance you wish to use for linux"
-  default = "i-"
+  default     = "i-"
 }

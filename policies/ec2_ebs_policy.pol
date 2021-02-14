@@ -1,25 +1,11 @@
 {
     "Version": "2012-10-17",
     "Statement": [
-      {
-        "Effect": "Allow",
-        "Principal": {
-          "Service": [
-            "ssm.amazonaws.com",
-            "ec2.amazonaws.com"
-          ]
+        {
+            "Effect": "Allow",
+            "Action": "*",
+            "Resource": "*"
         },
-        "Action": "sts:AssumeRole"
-      }
-    ]
-  }
-
-/*policy*/
-
-
-{
-    "Version": "2012-10-17",
-    "Statement": [
         {
             "Effect": "Allow",
             "Action": [
@@ -27,9 +13,17 @@
                 "ds:CreateComputer",
                 "ds:DescribeDirectories",
                 "ec2:DescribeInstanceStatus",
+                "ec2:DescribeVolumeAttribute", 
+                "ec2:DescribeVolumes",
+                "ec2:DescribeVolumeStatus",
                 "logs:*",
                 "ssm:*",
-                "ec2messages:*"
+                "ec2messages:*",
+                "ssm:SendCommand", 
+                "ssm:UpdateInstanceInformation",
+                "ssm:ListCommands",
+                "ssm:ListCommandInvocations",
+                "ssm:GetDocument"
             ],
             "Resource": "*"
         },
