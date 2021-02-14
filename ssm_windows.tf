@@ -96,7 +96,7 @@ resource "aws_ssm_document" "ssm_ebs_mapping_windows" {
           " $Report += $Disk",
           "} ",
           "",
-          "$Report | Sort-Object Disk | Format-Table -AutoSize -Property Disk, Partitions, DriveLetter, EbsVolumeId, Device, VirtualDevice, VolumeName ",
+          "$Report | Sort-Object Disk | ConvertTo-Json",
           ""
         ]
       }
