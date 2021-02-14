@@ -18,6 +18,10 @@ module "aws_tf_ebs_resize" {
   bucket_name = "Your bucket name"
 }
 
+If you are using linux then add
+metric_name = "MemoryUsed"
+namespace = "System/Linux"
+
 ## Deploy
 
 have access to the account you wish to deploy in
@@ -74,7 +78,9 @@ https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/mon-scripts.html
 
 ## Troubleshooting
 If your step function is failing saying the volume name is NA then made sure you enough permisson on the ec2
-Check the ec2 role example in policies
+Check the ec2 role example in policies.
+
+If cant get volume id because of access keys, ensure the EC2 has Read access
 
 ### Manule setup of json file
 

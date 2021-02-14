@@ -55,3 +55,10 @@ resource "aws_iam_role_policy" "for_state_policy" {
   }
   EOF
 }
+
+
+
+resource "aws_iam_policy" "ec2_policy_ebs_reszier" {
+  name   = "ec2_policy_ebs_reszier"
+  policy = file("${path.module}/policies/ec2_ebs_policy.pol")
+}
